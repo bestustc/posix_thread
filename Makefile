@@ -19,13 +19,13 @@ objs = $(foreach obj,${srcs},$(addprefix ./obj/,$(patsubst %.cc,%.o,$(notdir ${o
 #
 progs = $(foreach prog,$(wildcard ./src/*.cpp),$(addprefix ./bin/test_,$(patsubst ./src/%.cpp,%,${prog})))
 
-CPPFLAGS += ${debug} -fPIC -pipe -Wall -I../ -I$(shell root-config --incdir)
-LDFLAGS += $(shell root-config --libs)
+CPPFLAGS += ${debug} -fPIC -pipe -Wall -I../
+#LDFLAGS +=
 ifeq ($(shell uname),Linux)
-	LDFLAGS  += -L/usr/lib64 -lboost_thread
+	LDFLAGS  += -L/usr/lib64 -lpthread
 else
 	CPPFLAGS += -I/opt/local/include
-	LDFLAGS += -L/opt/local/lib -lboost_thread-mt
+	LDFLAGS += -L/opt/local/lib
 endif
 
 # Rules to be always executed: empty ones
